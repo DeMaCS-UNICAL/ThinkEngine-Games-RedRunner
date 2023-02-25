@@ -27,4 +27,4 @@ possible_reachable(X+1,f) :- prev_reachable(X,f), passable(X+1).
 possible_reachable(X,f) :- prev_reachable(X,f), not passable(X+1), passable(X).
 
 % if you can reach a tile, you can also reach all the ones below it (up to a non passable one)
-possible_reachable(X+1) :- possible_reachable(X), passable(X+1).
+possible_reachable(X+1,f) :- possible_reachable(X,Y), passable(X+1).
