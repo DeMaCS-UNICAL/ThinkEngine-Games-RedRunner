@@ -122,7 +122,10 @@ namespace RedRunner.TerrainGeneration
 				m_RemoveTime = Time.time + 5f;
 				Remove ();
 			}
-			Generate ();
+			if (m_GeneratedStartBlocksCount < m_Settings.StartBlocksCount || m_Settings.StartBlocksCount <= 0)//ADDED BY DENISE
+			{
+				Generate();
+			}
 		}
 
 		public virtual void Generate ()
