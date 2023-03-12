@@ -1,11 +1,9 @@
-% Guess the reachable
+% Guess the reachable Tiles in the current Stripe
 % 
 % INPUT:
-% possible_reachable(X,Y): X is a possible reachable tile
+% possible_reachable(Tile)
 % 
-% OUTPUT
-% reachable(X): X is a reachable tile
+% OUTPUT:
+% reachable(Tile): Tile is a reachable tile
 
-possible_reachable(X) :- possible_reachable(X,Y).
-
-1<={ reachable(X) : possible_reachable(X) }.
+1<={ reachable(Tile) : possible_reachable(Tile) }.

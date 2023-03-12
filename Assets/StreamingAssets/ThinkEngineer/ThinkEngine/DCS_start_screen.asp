@@ -1,28 +1,33 @@
 % The initial screen of the game
+% (for testing purposes only)
 % 
-% OUTPUT
-% tile(X): X is a tile
-% max_tile(X): X is the last tile (the height of the scene)
-% prev_reachable(X,Y): X is a reachable tile (in the previous stripe)
-%       Y=g reached staying on the ground
-%       Y=j1 reached with a jump (first stipe)
-%       Y=j2 reached with a jump (second stipe)
-%       Y=f reached falling
-% passable_asset(X): X is an asset where the player can transit
-% inaccessible_asset(X): X is an asset where the player cannot transit
+% OUTPUT:
+% stripe(StripeID): a Stripe is identified by the StripeID
+% current_stripe(StripeID): StripeID is the current stripe (the one that needs to be generated)
+% tile(StripeID,TileID): a Tile is identified by the StripeID and the TileID
+% has_state(Tile,AgentState): Tile has the state AgentState
+% pairs are always related to <Stripe,Tile>
 
-tile(1..10).
+stripe(2..3).
+current_stripe(3).
 
-max_tile(M) :- #max{X : tile(X)} = M.
+tile(2..3,1..10).
 
-prev_reachable(9,g).
-prev_reachable(9,f).
+contains_asset(tile(2,1),sky).
+contains_asset(tile(2,2),sky).
+contains_asset(tile(2,3),sky).
+contains_asset(tile(2,4),sky).
+contains_asset(tile(2,5),sky).
+contains_asset(tile(2,6),sky).
+contains_asset(tile(2,7),sky).
+contains_asset(tile(2,8),sky).
+contains_asset(tile(2,9),sky).
+contains_asset(tile(2,10),dirt).
 
-prev_reachable(8,j1).
-prev_reachable(8,f).
+has_state(tile(2,9),g).
+has_state(tile(2,9),f).
 
-prev_reachable(7,j2).
+has_state(tile(2,8),j1).
+has_state(tile(2,8),f).
 
-passable_asset(sky).
-
-inaccessible_asset(dirt).
+has_state(tile(2,7),j2).

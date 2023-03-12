@@ -1,11 +1,10 @@
-% Guess the passable
+% Guess the passable Tiles in the current Stripe
 % 
 % INPUT:
-% tile(X): X is a tile
+% current_stripe(StripeID)
+% tile(StripeID,TileID)
 % 
-% OUTPUT
-% passable(X): X is a passable tile
+% OUTPUT:
+% passable(Tile): Tile is a passable tile
 
-1<={ passable(X) : tile(X) }.
-
-:- passable(X), max_tile(X).
+1<={ passable(tile(CurrentStripe,Tile)) : current_stripe(CurrentStripe), tile(CurrentStripe,Tile) }.

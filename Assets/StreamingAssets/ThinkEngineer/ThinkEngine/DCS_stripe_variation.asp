@@ -1,15 +1,11 @@
-% Compute the variation between the current stripe and the previous one and then verifies that it is less than the threashold
+% Compute the variation between stripes and then verifies that it is less than the threashold
 % 
 % INPUT:
-% prev_assigned_asset(X,A): tile X (in the previous stripe) contains asset A
-% assigned_asset(X,A): tile X contains asset A
-% compatible(A,B): if asset A is compatible with asset B
-% variation_threshold(X): the maximum variation allowed (a value in [0,100])
-% max_tile(X): X is the last tile (the height of the scene)
+% TBC
 % 
-% OUTPUT
-% different_tiles(X): tile X is not compatible with the one in the previous stripe 
+% OUTPUT:
+% TBC
 
-different_tiles(X) :- prev_assigned_asset(X,A), assigned_asset(X,B), not compatible(A,B).
+different_tiles(variation(direction(DirectionStripe,DirectionTile),Threshold), tile(CurrentStripe,Tile), tile(CurrentStripe+DirectionStripe,Tile+DirectionTile)) :- variation(direction(DirectionStripe,DirectionTile),Threshold), current_stripe(CurrentStripe), tile(CurrentStripe,Tile), contains_asset(tile(CurrentStripe,Tile),CurrentAsset), contains_asset(tile(CurrentStripe+DirectionStripe,Tile+DirectionTile),DirectionAsset), not same_as(CurrentAsset,DirectionAsset).
 
-:- #count{X : different_tiles(X)} = DT, variation_threshold(VT), max_tile(MT), DT*100/MT > VT.
+:- #count{Direction, Threshold, Tile1, Tile2 : different_tiles(variation(Direction,Threshold),Tile1,Tile2)} = DT, variation(Direction,Threshold), height(H), DT*100/H > Threshold.
