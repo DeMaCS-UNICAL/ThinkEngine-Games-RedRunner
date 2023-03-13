@@ -15,9 +15,9 @@ graph TB
         Scene(Scene)
         Stripe(Stripe)
         Tile(Tile)
+        %% TileProperty(TileProperty)
         Asset(Asset)
         AssetProperty(AssetProperty)
-        %% TileProperty(TileProperty)
     end
 
     %% Properties (Core elements)
@@ -25,9 +25,9 @@ graph TB
     Scene -- contains stripe --> Stripe
     Stripe -- contains tile --> Tile
     Tile -- contains asset --> Asset
-    Asset -- has property --> AssetProperty
     Tile -- has state --> AgentState
     %% Tile -- has property --> TileProperty
+    Asset -- has property --> AssetProperty
     Asset -- same as --> Asset
 
     subgraph Actions and Compatibility and Variation
@@ -53,9 +53,11 @@ graph TB
     Compatibility -- target asset --> Asset
 
     Variation -- has direction --> Direction
-    Variation -- threshold --> threshold{{int}}
+    Variation -- min threshold --> threshold{{int}}
+    Variation -- max threshold --> threshold{{int}}
 
     subgraph Assets properties %% and Tiles
+        direction LR
         %% Classes
         Passable(Passable)
         %% Reachable(Reachable)
@@ -127,7 +129,7 @@ Assign an asset to each tile
 
 Verifies the compatibility requirements for each Tile in the current Stripe
 
-### DCS_stripe_variation
+### DCS_check_variation
 
 Compute the variation between stripes and then verifies that it is less than the threashold
 
@@ -138,3 +140,7 @@ The preferences about the results
 ### DCS_add_delete_update
 
 Compute the atoms to keep/remove in the following iterations
+
+### DCS_output
+
+The query about the Assets of the Tiles of the current Stripe

@@ -1,9 +1,9 @@
 % Verifies the compatibility requirements for each Tile in the current Stripe
 % 
 % INPUT:
-% TBC
-% OUTPUT:
-% TBC
+% current_stripe(StripeID)
+% contains_asset(Tile,Asset)
+% compatible(Asset1,Asset2,D)
 
 compatible_tiles_to_check(tile(CurrentStripe,Tile),tile(CurrentStripe+DirectionStripe,Tile+DirectionTile),AssetDirection) :- current_stripe(CurrentStripe), tile(CurrentStripe,Tile), contains_asset(tile(CurrentStripe,Tile),Asset), compatible(Asset,AssetDirection,direction(DirectionStripe,DirectionTile)), DirectionStripe <= 0,DirectionTile <= 0, CurrentStripe+DirectionStripe > 0, Tile+DirectionTile > 0.
 

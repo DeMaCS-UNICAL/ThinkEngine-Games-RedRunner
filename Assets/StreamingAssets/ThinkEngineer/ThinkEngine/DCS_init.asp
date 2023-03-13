@@ -1,9 +1,12 @@
 % Initialise the environment of the game (Knowledge Completion of the Background Knowledge)
 % 
 % INPUT:
-% TBC
+% compatible(Asset1,Asset2,D)
+% asset(A)
+% same_as(Asset1,Asset2)
+%
 % OUTPUT:
-% TBC
+% same_as(Asset1,Asset2): if Asset1 has to be considered the same as Asset2 for stripe variation
 
 % max_tile(M) :- #max{X : tile(X)} = M.
 

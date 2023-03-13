@@ -4,9 +4,9 @@
 % height(H): H is a height of the Scene
 % asset(A): A is an Asset
 % has_property(A,P): Asset A has property P
-% compatible(A1,A2,D): Asset A1 is compatible with Asset A2 in Direction D
+% compatible(Asset1,Asset2,D): Asset A1 is compatible with Asset A2 in Direction D
 % action(D,Precondition,Effect): if in Direction D there is the AgentState Precondition, then this tile gets AgentState Effect
-% variation(Direction,Threshold): variation wrt Direction D must be at most Threshold (in percentage, 0..100)
+% variation(Direction,MinThreshold,MaxThreshold): tiles variation wrt Direction D must be at least MinThreshold and at most MaxThreshold (in percentage, 0..100)
 % pairs are always related to <Stripe,Tile>
 
 height(10).
@@ -20,6 +20,7 @@ compatible(dirt,dirt,direction(0,-1)). % i.e., dirt is compatible with dirt abov
 compatible(dirt,sky,direction(0,-1)). % i.e., dirt is compatible with sky above
 compatible(sky,sky,direction(-1,0)). % i.e., sky is compatible with sky on the left
 compatible(sky,sky,direction(0,1)). % i.e., sky is compatible with sky below
+compatible(dirt,sky,direction(-1,0)). % i.e., dirt is compatible with dirt on the left
 
 % g   on the ground
 % j1  jump (first stipe)
@@ -52,4 +53,4 @@ action(direction(-1,-1),f,f).
 action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 
 % check variation wrt the same tile in the previous stripe
-variation(direction(-1,0),20).
+variation(direction(-1,0),10,40).
