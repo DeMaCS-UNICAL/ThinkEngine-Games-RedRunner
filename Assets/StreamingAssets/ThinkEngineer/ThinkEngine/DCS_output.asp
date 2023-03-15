@@ -9,4 +9,4 @@
 
 current_asset(TileID,Asset) :- contains_asset(tile(StripeID,TileID),Asset), current_stripe(StripeID).
 
-current_asset(TileID,Asset) ?
+% current_asset(TileID,Asset) ?
