@@ -4,9 +4,10 @@
 % height(H): H is a height of the Scene
 % asset(A): A is an Asset
 % has_property(A,P): Asset A has property P
-% compatible(Asset1,Asset2,D): Asset A1 is compatible with Asset A2 in Direction D
+% compatible(Asset1,Asset2,D): Asset Asset1 is compatible with Asset Asset2 in Direction D
 % action(D,Precondition,Effect): if in Direction D there is the AgentState Precondition, then this tile gets AgentState Effect
 % variation(Direction,MinThreshold,MaxThreshold): tiles variation wrt Direction D must be at least MinThreshold and at most MaxThreshold (in percentage, 0..100)
+% preference(Asset1,Asset2,D,Priority): Asset Asset1 is Priority preferred with Asset Asset2 in Direction D
 % pairs are always related to <Stripe,Tile>
 
 height(10).
@@ -54,3 +55,6 @@ action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 
 % check variation wrt the same tile in the previous stripe
 variation(direction(-1,0),10,40).
+
+% create a climb
+preference(dirt,dirt,direction(-1,1),low).

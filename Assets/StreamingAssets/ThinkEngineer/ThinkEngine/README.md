@@ -30,7 +30,7 @@ graph TB
     Asset -- has property --> AssetProperty
     Asset -- same as --> Asset
 
-    subgraph Actions and Compatibility and Variation
+    subgraph Actions Compatibility Preferences Variation
         direction LR
         %% Classes
         Action(Action)
@@ -38,6 +38,8 @@ graph TB
         Direction(Direction)
         
         Compatibility(Compatibility)
+
+        Preference(Preference)
         
         Variation(Variation)
     end
@@ -53,8 +55,11 @@ graph TB
     Compatibility -- target asset --> Asset
 
     Variation -- has direction --> Direction
-    Variation -- min threshold --> threshold{{int}}
-    Variation -- max threshold --> threshold{{int}}
+    Variation -- min threshold --> minthreshold{{int}}
+    Variation -- max threshold --> maxthreshold{{int}}
+
+    Preference -. a .- Compatibility
+    Preference -- has priority --> priority{{"low|medium|high"}}
 
     subgraph Assets properties %% and Tiles
         direction LR
