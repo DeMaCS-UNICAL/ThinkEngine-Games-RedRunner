@@ -26,10 +26,10 @@ contains_asset(tile(S-1,8),-1):-current_stripe(S).
 contains_asset(tile(S-1,9),-1):-current_stripe(S).
 contains_asset(tile(S-1,10),Id):-prefabName(Id,"Grass"),current_stripe(S).
 
-has_state(tile(S-1,10),g):-current_stripe(S).
-has_state(tile(S-1,9),j1):-current_stripe(S).
+has_state(tile(S-1,9),g):-current_stripe(S).
+has_state(tile(S-1,8),j1):-current_stripe(S).
 
-has_state(tile(S-1,8),j2):-current_stripe(S).
-has_state(tile(S-1,9),f):-current_stripe(S).
-
+has_state(tile(S-1,7),j2):-current_stripe(S).
 has_state(tile(S-1,8),f):-current_stripe(S).
+
+has_state(tile(S-1,7),f):-current_stripe(S).
