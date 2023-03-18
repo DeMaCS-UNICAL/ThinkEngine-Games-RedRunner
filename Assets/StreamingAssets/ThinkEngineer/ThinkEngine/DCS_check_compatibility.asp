@@ -12,3 +12,4 @@ compatible_tile_checked(CurrentTile,TileDirection) :- compatible_tiles_to_check(
 incompatible :- compatible_tiles_to_check(CurrentTile,TileDirection,_), not compatible_tile_checked(CurrentTile,TileDirection).
 
 :- incompatible.
+

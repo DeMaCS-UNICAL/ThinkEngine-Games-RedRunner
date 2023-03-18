@@ -9,26 +9,27 @@
 % has_state(Tile,AgentState): Tile has the state AgentState
 % pairs are always related to <Stripe,Tile>
 
-stripe(14..15).
-current_stripe(15).
+stripe(S):-current_stripe(S).
+stripe(S-1):-current_stripe(S).
+%current_stripe(15).
+tile_number(1..10).
+tile(S,N):-stripe(S),tile_number(N).
 
-tile(14..15,1..10).
+contains_asset(tile(S-1,1),-1):-current_stripe(S).
+contains_asset(tile(S-1,2),-1):-current_stripe(S).
+contains_asset(tile(S-1,3),-1):-current_stripe(S).
+contains_asset(tile(S-1,4),-1):-current_stripe(S).
+contains_asset(tile(S-1,5),-1):-current_stripe(S).
+contains_asset(tile(S-1,6),-1):-current_stripe(S).
+contains_asset(tile(S-1,7),-1):-current_stripe(S).
+contains_asset(tile(S-1,8),-1):-current_stripe(S).
+contains_asset(tile(S-1,9),-1):-current_stripe(S).
+contains_asset(tile(S-1,10),Id):-prefabName(Id,"Grass"),current_stripe(S).
 
-contains_asset(tile(14,1),-1).
-contains_asset(tile(14,2),-1).
-contains_asset(tile(14,3),-1).
-contains_asset(tile(14,4),-1).
-contains_asset(tile(14,5),-1).
-contains_asset(tile(14,6),-1).
-contains_asset(tile(14,7),-1).
-contains_asset(tile(14,8),-1).
-contains_asset(tile(14,9),-1).
-contains_asset(tile(14,10),Id):-prefabName(Id,"Grass").
+has_state(tile(S-1,10),g):-current_stripe(S).
+has_state(tile(S-1,9),j1):-current_stripe(S).
 
-has_state(tile(14,10),g).
-has_state(tile(14,9),j1).
+has_state(tile(S-1,8),j2):-current_stripe(S).
+has_state(tile(S-1,9),f):-current_stripe(S).
 
-has_state(tile(14,8),j2).
-has_state(tile(14,9),f).
-
-has_state(tile(14,8),f).
+has_state(tile(S-1,8),f):-current_stripe(S).
