@@ -10,18 +10,18 @@
 % preference(Asset1,Asset2,D,Priority): Asset Asset1 is Priority preferred with Asset Asset2 in Direction D
 % pairs are always related to <Stripe,Tile>
 
-height(10).
+%height(10).
 
-asset(sky).
-asset(dirt).
-has_property(sky,passable).
+%asset(sky).
+%asset(dirt).
+%has_property(sky,passable).
 
-compatible(dirt,dirt,direction(-1,0)). % i.e., dirt is compatible with dirt on the left
-compatible(dirt,dirt,direction(0,-1)). % i.e., dirt is compatible with dirt above
-compatible(dirt,sky,direction(0,-1)). % i.e., dirt is compatible with sky above
-compatible(sky,sky,direction(-1,0)). % i.e., sky is compatible with sky on the left
-compatible(sky,sky,direction(0,1)). % i.e., sky is compatible with sky below
-compatible(dirt,sky,direction(-1,0)). % i.e., dirt is compatible with dirt on the left
+%compatible(dirt,dirt,direction(-1,0)). % i.e., dirt is compatible with dirt on the left
+%compatible(dirt,dirt,direction(0,-1)). % i.e., dirt is compatible with dirt above
+%compatible(dirt,sky,direction(0,-1)). % i.e., dirt is compatible with sky above
+%compatible(sky,sky,direction(-1,0)). % i.e., sky is compatible with sky on the left
+%compatible(sky,sky,direction(0,1)). % i.e., sky is compatible with sky below
+%compatible(dirt,sky,direction(-1,0)). % i.e., dirt is compatible with dirt on the left
 
 % g   on the ground
 % j1  jump (first stipe)
@@ -57,4 +57,4 @@ action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 variation(direction(-1,0),10,40).
 
 % create a climb
-preference(dirt,dirt,direction(-1,1),low).
+%preference(dirt,dirt,direction(-1,1),low).
