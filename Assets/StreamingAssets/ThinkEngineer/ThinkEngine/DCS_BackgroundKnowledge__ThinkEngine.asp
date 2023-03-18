@@ -12,11 +12,7 @@ compatible(22530,-1,direction(-1,0)).
 compatible(22530,-1,direction(0,-1)).
 compatible(22530,22530,direction(-1,0)).
 compatible(22530,22544,direction(-1,0)).
-has_property(-1,passable).
-asset(-1).
 prefabName(22534,"Dirt").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
 asset(22534).
 has_property(22534,obstacle).
 has_property(22534,canFloat).
@@ -29,11 +25,7 @@ compatible(22534,22540,direction(-1,0)).
 compatible(22534,22534,direction(-1,0)).
 compatible(22534,22544,direction(-1,0)).
 preference(22534,22534,direction(-1,0),low).
-has_property(-1,passable).
-asset(-1).
 prefabName(22540,"Dept Water 1").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
 asset(22540).
 has_property(22540,dangerous).
 has_property(22540,stackable).
@@ -41,17 +33,11 @@ compatible(22540,22544,direction(0,-1)).
 compatible(22540,22540,direction(-1,0)).
 compatible(22540,22534,direction(-1,0)).
 preference(22540,22540,direction(-1,0),low).
-has_property(-1,passable).
-asset(-1).
 prefabName(22544,"Water").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
 asset(22544).
 has_property(22544,dangerous).
 compatible(22544,-1,direction(0,-1)).
 compatible(22544,22544,direction(-1,0)).
 compatible(22544,22530,direction(-1,0)).
 preference(22544,22544,direction(-1,0),low).
-
 height(10).
-
