@@ -10,6 +10,7 @@
 % OUTPUT:
 % Add(X): X is an atom that needs to be included in the next iteration
 % Delete(X): X is an atom that needs to be removed in the next iteration
+% Update(X,Y): X is an atom that needs to be updated to Y in the next iteration
 
 % Add a new Stripe
 Add(stripe(StripeID+1)) :- current_stripe(StripeID).

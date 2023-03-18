@@ -1,4 +1,4 @@
-% Compute the variation between stripes and then verifies that it is less than the threashold
+% Compute the variation between stripes and then verifies that it is less than the thresholds
 % 
 % INPUT:
 % variation(Direction,MinThreshold,MaxThreshold)

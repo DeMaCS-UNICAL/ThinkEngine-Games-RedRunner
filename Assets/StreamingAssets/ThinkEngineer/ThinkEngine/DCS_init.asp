@@ -16,7 +16,7 @@ compatible(Asset2,Asset1,direction(-DirectionS,-DirectionT))
 
 % Reflexivity same as
 same_as(Asset,Asset) :- asset(Asset).
-% Simmetry same as
+% Symmetry same as
 same_as(Asset2,Asset1) :- same_as(Asset1,Asset2).
 % Transitivity same as
 same_as(Asset1,Asset3) :- same_as(Asset1,Asset2), same_as(Asset2,Asset3).

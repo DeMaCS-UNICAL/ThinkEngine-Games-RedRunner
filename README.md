@@ -1,6 +1,7 @@
 # Red Runner
 
-Red Runner, Awesome Platformer Game.
+A fork of Red Runner, the Awesome Platformer Game, meant for experimenting with Content Generation using the 
+[ThinkEngine](https://github.com/DeMaCS-UNICAL/ThinkEngine) Tool
 
 It is now free and open source and always will be. :clap: :tada:
 
