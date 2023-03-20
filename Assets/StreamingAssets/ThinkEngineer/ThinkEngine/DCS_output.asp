@@ -8,6 +8,6 @@
 % current_asset(TileID,Asset): the tile TileID (of the current stripe) contains Asset
 
 current_asset(StripeID,TileID,Asset) :- contains_asset(tile(StripeID,TileID),Asset), current_stripe(StripeID).
-% current_asset(TileID,Asset) ?
+% current_asset(StripeID,TileID,Asset) ?
 
 %#show current_asset/3.

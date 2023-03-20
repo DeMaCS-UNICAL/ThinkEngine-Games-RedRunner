@@ -29,6 +29,7 @@ graph TB
     %% Tile -- has property --> TileProperty
     Asset -- has property --> AssetProperty
     Asset -- same as --> Asset
+    Asset -- label --> label{{label}}
 
     subgraph Actions Compatibility Preferences Variation
         direction LR

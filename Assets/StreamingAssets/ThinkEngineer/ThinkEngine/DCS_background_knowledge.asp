@@ -33,9 +33,6 @@ compatible(Asset1,Asset2,Above) :-
                         justabove(Name1,Name2), above(Above),
                         prefabName(Asset1,Name1), prefabName(Asset2,Name2).
 
-
-
-
 agent_state(g).
 agent_state(j1).
 agent_state(j2).
