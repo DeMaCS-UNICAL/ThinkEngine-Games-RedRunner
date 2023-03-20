@@ -1,57 +1,31 @@
+prefabName(-1,"Empty").
 has_property(-1,passable).
-asset(-1).
-prefabName(22530,"Grass").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
-asset(22530).
-has_property(22530,walkable).
-has_property(22530,obstacle).
-has_property(22530,canFloat).
-compatible(22530,-1,direction(0,1)).
-compatible(22530,-1,direction(-1,0)).
-compatible(22530,-1,direction(0,-1)).
-compatible(22530,22530,direction(-1,0)).
-compatible(22530,22544,direction(-1,0)).
-has_property(-1,passable).
-asset(-1).
-prefabName(22534,"Dirt").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
-asset(22534).
-has_property(22534,obstacle).
-has_property(22534,canFloat).
-compatible(22534,-1,direction(0,1)).
-compatible(22534,-1,direction(-1,0)).
-has_property(22534,stackable).
-compatible(22534,22534,direction(0,-1)).
-compatible(22534,22530,direction(0,-1)).
-compatible(22534,22540,direction(-1,0)).
-compatible(22534,22534,direction(-1,0)).
-compatible(22534,22544,direction(-1,0)).
-preference(22534,22534,direction(-1,0),low).
-has_property(-1,passable).
-asset(-1).
-prefabName(22540,"Dept Water 1").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
-asset(22540).
-has_property(22540,dangerous).
-has_property(22540,stackable).
-compatible(22540,22544,direction(0,-1)).
-compatible(22540,22540,direction(-1,0)).
-compatible(22540,22534,direction(-1,0)).
-preference(22540,22540,direction(-1,0),low).
-has_property(-1,passable).
-asset(-1).
-prefabName(22544,"Water").
-compatible(-1,-1,direction(-1,0)).
-compatible(-1,-1,direction(0,-1)).
-asset(22544).
-has_property(22544,dangerous).
-compatible(22544,-1,direction(0,-1)).
-compatible(22544,22544,direction(-1,0)).
-compatible(22544,22530,direction(-1,0)).
-preference(22544,22544,direction(-1,0),low).
+leftright("Empty","Empty").
+abovevelow("Empty","Empty").
+prefabName(22538,"Grass").
+justabove("Empty","Grass").
+leftright("Grass","Empty").
+leftright("Grass","Grass").
+leftright("Grass","Water").
+prefabName(22542,"Dirt").
+justabove("Empty","Dirt").
+leftright("Dirt","Empty").
+abovebelow("Dirt","Dirt").
+justabove("Dirt","Grass").
+leftright("Dirt","Dept Water 1").
+leftright("Dirt","Dirt").
+leftright("Dirt","Water").
+preference(22542,22542,direction(-1,0),low).
+prefabName(22546,"Dept Water 1").
+abovebelow("Dept Water 1","Dept Water 1").
+justabove("Dept Water 1","Water").
+leftright("Dept Water 1","Dept Water 1").
+leftright("Dept Water 1","Dirt").
+preference(22546,22546,direction(-1,0),low).
+prefabName(22550,"Water").
+leftright("Water","Water").
+leftright("Water","Grass").
+preference(22550,22550,direction(-1,0),low).
 
 height(10).
 

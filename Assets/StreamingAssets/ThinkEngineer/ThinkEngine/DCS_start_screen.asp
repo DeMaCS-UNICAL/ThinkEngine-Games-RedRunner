@@ -18,9 +18,9 @@ contains_asset(tile(S,T),-1) :- prev_stripe(S), tile(S,T), T<10.
 contains_asset(tile(S,10),Id) :- prefabName(Id,"Grass"), prev_stripe(S).
 
 has_state(tile(S-1,9),g):-current_stripe(S).
-has_state(tile(S-1,8),j1):-current_stripe(S).
+has_state(tile(S-1,9),f):-current_stripe(S).
 
-%has_state(tile(S-1,7),j2):-current_stripe(S).
+has_state(tile(S-1,8),j1):-current_stripe(S).
 has_state(tile(S-1,8),f):-current_stripe(S).
 
-has_state(tile(S-1,7),f):-current_stripe(S).
+has_state(tile(S-1,7),j2):-current_stripe(S).
