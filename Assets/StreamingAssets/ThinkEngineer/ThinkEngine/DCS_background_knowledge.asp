@@ -16,6 +16,9 @@
 % f   falling
 % A jump reaches the peak in two stripes
 % Jumps and falls follow 45-degree parabolas
+has_property(AssetID,passable):-prefabName(AssetID,"Empty").
+
+
 
 asset(AssetID) :- prefabName(AssetID,_).
 left(direction(-1,0)).
@@ -26,7 +29,7 @@ leftright(Name2,Name1) :- leftright(Name1,Name2).
 compatible(Asset1,Asset2,Left) :-
                         leftright(Name1,Name2), left(Left),
                         prefabName(Asset1,Name1), prefabName(Asset2,Name2).
-                        
+
 justabove(Name1,Name2) :- abovebelow(Name1,Name2).
 justabove(Name2,Name1) :- abovebelow(Name1,Name2).
 compatible(Asset1,Asset2,Above) :-
@@ -59,3 +62,9 @@ action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 
 % check variation wrt the same tile in the previous stripe
 variation(direction(-1,0),10,40).
+
+%#show current_asset/3.
+%#show Add/1.
+%#show Delete/1.
+%#show Update/2.
+

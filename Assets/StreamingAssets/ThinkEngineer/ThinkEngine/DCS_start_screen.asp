@@ -24,3 +24,5 @@ tile_action(1..14,8..9,f).
 tile_action(1..14,8,j1).
 tile_action(1..14,7,j2).
 has_state(tile(S,T),A):-tile_action(S,T,A).
+
+
