@@ -8,19 +8,19 @@
 % contains_asset(Tile,Asset): Tile contains Asset
 % has_state(Tile,AgentState): Tile has the state AgentState
 % pairs are always related to <Stripe,Tile>
+stripe(1..15).
+%prev_stripe(S-1) :- current_stripe(S).
 
-stripe(S) :- current_stripe(S).
-prev_stripe(S-1) :- current_stripe(S).
-stripe(S) :- prev_stripe(S).
 tile(S,1..10) :- stripe(S).
 
-contains_asset(tile(S,T),-1) :- prev_stripe(S), tile(S,T), T<10.
-contains_asset(tile(S,10),Id) :- prefabName(Id,"Grass"), prev_stripe(S).
+tile_empty(1..14,1..9).
+tile_grass(1..14,10).
+contains_asset(tile(S,T),-1):-tile_empty(S,T).
+contains_asset(tile(S,T),Id):-tile_grass(S,T), prefabName(Id,"Grass").
 
-has_state(tile(S-1,9),g):-current_stripe(S).
-has_state(tile(S-1,9),f):-current_stripe(S).
 
-has_state(tile(S-1,8),j1):-current_stripe(S).
-has_state(tile(S-1,8),f):-current_stripe(S).
-
-has_state(tile(S-1,7),j2):-current_stripe(S).
+tile_action(1..14,9,g).
+tile_action(1..14,8..9,f).
+tile_action(1..14,8,j1).
+tile_action(1..14,7,j2).
+has_state(tile(S,T),A):-tile_action(S,T,A).
