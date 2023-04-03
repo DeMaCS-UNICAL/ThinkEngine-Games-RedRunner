@@ -11,4 +11,4 @@
 1<={ contains_asset(Tile,Asset) : has_property(Asset,passable) }<=1 :- passable(Tile).
 
 % Assign a non-passable Asset to each non-passable Tile
-1<={ contains_asset(tile(CurrentStripe,Tile),Asset) : asset(Asset), not has_property(Asset,passable) }<=1 :- current_stripe(CurrentStripe), tile(CurrentStripe,Tile), not passable(tile(CurrentStripe,Tile)).
+1<={ contains_asset(tile(StripeID,TileID),Asset) : asset(Asset), not has_property(Asset,passable) }<=1 :- current_tile(StripeID,TileID), not passable(tile(StripeID,TileID)).

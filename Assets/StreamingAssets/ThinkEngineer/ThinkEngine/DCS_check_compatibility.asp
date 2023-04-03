@@ -6,7 +6,7 @@
 % compatible(Asset1,Asset2,D)
 
 % Identify the compatible tiles that need to be checked 
-compatible_tiles_to_check(tile(CurrentStripe,Tile),tile(CurrentStripe+DirectionStripe,Tile+DirectionTile),AssetDirection) :- current_stripe(CurrentStripe), tile(CurrentStripe,Tile), contains_asset(tile(CurrentStripe,Tile),Asset), compatible(Asset,AssetDirection,direction(DirectionStripe,DirectionTile)), DirectionStripe <= 0,DirectionTile <= 0, CurrentStripe+DirectionStripe > 0, Tile+DirectionTile > 0.
+compatible_tiles_to_check(tile(StripeID,TileID),tile(StripeID+DirectionStripe,TileID+DirectionTile),AssetDirection) :- current_tile(StripeID,TileID), contains_asset(tile(StripeID,TileID),Asset), compatible(Asset,AssetDirection,direction(DirectionStripe,DirectionTile)), DirectionStripe <= 0,DirectionTile <= 0, StripeID+DirectionStripe > 0, TileID+DirectionTile > 0.
 
 % Define the valid tiles among the checked ones
 valid_compatible_tile(CurrentTile,TileDirection) :- compatible_tiles_to_check(CurrentTile,TileDirection,AssetDirection), contains_asset(TileDirection,AssetDirection).

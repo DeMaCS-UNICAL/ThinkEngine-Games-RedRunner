@@ -18,3 +18,6 @@ same_as(Asset,Asset) :- asset(Asset).
 same_as(Asset2,Asset1) :- same_as(Asset1,Asset2).
 % Transitivity `same_as`
 same_as(Asset1,Asset3) :- same_as(Asset1,Asset2), same_as(Asset2,Asset3).
+
+% Utility atom: the Tiles of the current Stripe
+current_tile(StripeID,TileID) :- current_stripe(StripeID), tile(StripeID,TileID).
