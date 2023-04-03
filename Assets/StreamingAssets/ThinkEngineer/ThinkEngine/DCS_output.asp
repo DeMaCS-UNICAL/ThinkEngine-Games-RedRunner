@@ -9,5 +9,7 @@
 
 % The assets of the current stripe
 % TODO check if we can avoid the first term
-current_asset(StripeID,TileID,Asset) :- contains_asset(tile(StripeID,TileID),Asset), current_stripe(StripeID).
+current_asset(StripeID,TileID,Asset) :-
+        contains_asset(tile(StripeID,TileID),Asset),
+        current_stripe(StripeID).
 % current_asset(StripeID,TileID,Asset) ?

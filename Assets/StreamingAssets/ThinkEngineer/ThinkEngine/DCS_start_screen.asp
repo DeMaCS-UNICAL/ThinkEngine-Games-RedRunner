@@ -3,7 +3,6 @@
 % 
 % OUTPUT:
 % stripe(StripeID): a Stripe is identified by the StripeID
-% current_stripe(StripeID): StripeID is the current stripe (the one that needs to be generated)
 % tile(StripeID,TileID): a Tile is identified by the StripeID and the TileID
 % contains_asset(Tile,Asset): Tile contains Asset
 % has_state(Tile,AgentState): Tile has the state AgentState
