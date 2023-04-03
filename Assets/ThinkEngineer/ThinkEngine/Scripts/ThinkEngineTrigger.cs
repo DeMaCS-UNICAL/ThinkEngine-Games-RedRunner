@@ -14,6 +14,7 @@ using UnityEngine;
 				cont = 0;
 				return true;
             }
+			cont++;
 			return false;
         }
 
