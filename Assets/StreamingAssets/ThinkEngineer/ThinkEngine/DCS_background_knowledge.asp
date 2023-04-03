@@ -10,19 +10,30 @@
 % preference(Asset1,Asset2,D,Priority): Asset Asset1 is Priority preferred with Asset Asset2 in Direction D
 % pairs are always related to <Stripe,Tile>
 
-% g   on the ground
-% j1  jump (first stipe)
-% j2  jump (second stipe)
-% f   falling
-% A jump reaches the peak in two stripes
-% Jumps and falls follow 45-degree parabolas
-has_property(AssetID,passable):-prefabName(AssetID,"Empty").
+% The only `passable` asset is the Empty one
+has_property(AssetID,passable) :- prefabName(AssetID,"Empty").
 
-
-
+% Get all the assets from the `prefabName` atoms
 asset(AssetID) :- prefabName(AssetID,_).
+
+% Utility atoms and rules to simplify the definition of `compatible` atoms
 left(direction(-1,0)).
 above(direction(0,-1)).    
+
+leftright("Grass","Empty").
+% leftright("Grass","Water").
+% leftright("Dirt","Empty").
+% leftright("Dirt","Water").
+% leftright("Dirt","Dept Water 1").
+
+abovebelow("Empty","Grass").
+% abovebelow("Empty","Empty").
+% abovebelow("Dirt","Dirt").
+% abovebelow("Dept Water 1","Dept Water 1").
+% % justabove("Empty","Dirt").
+% justabove("Dirt","Grass").
+% justabove("Dept Water 1","Water").
+% justabove("Water","NotPassable").
 
 leftright(AssetID,AssetID) :- asset(AssetID).
 leftright(Name2,Name1) :- leftright(Name1,Name2).
@@ -35,6 +46,14 @@ justabove(Name2,Name1) :- abovebelow(Name1,Name2).
 compatible(Asset1,Asset2,Above) :-
                         justabove(Name1,Name2), above(Above),
                         prefabName(Asset1,Name1), prefabName(Asset2,Name2).
+
+% Defining all the possible actions
+% g   on the ground
+% j1  jump (first stipe)
+% j2  jump (second stipe)
+% f   falling
+% A jump reaches the peak in two stripes
+% Jumps and falls follow 45-degree parabolas
 
 agent_state(g).
 agent_state(j1).
@@ -61,10 +80,9 @@ action(direction(-1,-1),f,f).
 action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 
 % check variation wrt the same tile in the previous stripe
-variation(direction(-1,0),10,40).
+variation(direction(-1,0),0,40).
 
-%#show current_asset/3.
-%#show Add/1.
-%#show Delete/1.
-%#show Update/2.
-
+% Assets preferences
+% preference(Dirt,Dirt,Left,low) :- prefabName(Dirt,"Dirt"), left(Left).
+% preference(DeptWater,DeptWater,Left,low) :- prefabName(DeptWater,"Dept Water 1"), left(Left).
+% preference(Water,Water,Left,low) :- prefabName(Water,"Water"), left(Left).
