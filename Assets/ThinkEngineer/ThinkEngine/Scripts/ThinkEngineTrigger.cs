@@ -5,7 +5,17 @@ using UnityEngine;
  namespace ThinkEngine 
 {
 	 public class ThinkEngineTrigger:ScriptableObject
-{
+	{
+		int cont = 0;
+		public bool Run()
+        {
+			if(cont == 100)
+            {
+				cont = 0;
+				return true;
+            }
+			return false;
+        }
 
 	}
 }
