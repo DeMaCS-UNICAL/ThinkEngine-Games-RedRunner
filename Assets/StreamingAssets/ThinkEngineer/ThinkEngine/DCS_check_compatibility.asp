@@ -10,11 +10,11 @@ compatible_tiles_to_check(tile(StripeID,TileID),tile(StripeID+DirectionStripe,Ti
         current_tile(StripeID,TileID),
         contains_asset(tile(StripeID,TileID),Asset),
         compatible(Asset,AssetDirection,direction(DirectionStripe,DirectionTile)),
-        DirectionStripe <= 0,DirectionTile <= 0,
+        DirectionStripe <= 0, DirectionTile <= 0,
         StripeID+DirectionStripe > 0,
         TileID+DirectionTile > 0.
 
-% Define the valid tiles among the checked ones
+% Define the valid tiles among the checked ones; the TileDirection should contain one of the compatible Assets (there might be many)
 valid_compatible_tile(CurrentTile,TileDirection) :-
         compatible_tiles_to_check(CurrentTile,TileDirection,AssetDirection),
         contains_asset(TileDirection,AssetDirection).

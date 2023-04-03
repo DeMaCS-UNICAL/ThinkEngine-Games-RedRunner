@@ -10,6 +10,9 @@
 % preference(Asset1,Asset2,D,Priority): Asset Asset1 is Priority preferred with Asset Asset2 in Direction D
 % pairs are always related to <Stripe,Tile>
 
+% Bottom tile cannot be passable
+:- current_tile(StripeID,TileID), height(TileID), contains_asset(tile(StripeID,TileID),AssetID), has_property(AssetID,passable).
+
 % The only `passable` asset is the Empty one
 has_property(AssetID,passable) :- prefabName(AssetID,"Empty").
 
@@ -17,35 +20,55 @@ has_property(AssetID,passable) :- prefabName(AssetID,"Empty").
 asset(AssetID) :- prefabName(AssetID,_).
 
 % Utility atoms and rules to simplify the definition of `compatible` atoms
-left(direction(-1,0)).
-above(direction(0,-1)).    
+left_dir(direction(-1,0)).
+above_dir(direction(0,-1)).    
 
-leftright("Grass","Empty").
-% leftright("Grass","Water").
-% leftright("Dirt","Empty").
-% leftright("Dirt","Water").
-% leftright("Dirt","Dept Water 1").
+lr_n("Grass","Empty").
+% lr_n("Grass","Water").
+% lr_n("Dirt","Empty").
+% lr_n("Dirt","Water").
+% lr_n("Dirt","Dept Water 1").
 
-abovebelow("Empty","Grass").
-% abovebelow("Empty","Empty").
-% abovebelow("Dirt","Dirt").
-% abovebelow("Dept Water 1","Dept Water 1").
-% % justabove("Empty","Dirt").
-% justabove("Dirt","Grass").
-% justabove("Dept Water 1","Water").
-% justabove("Water","NotPassable").
+tb_n("Empty","Grass").
+tb_n("Empty","Empty").
+% tb_n("Dirt","Dirt").
+% tb_n("Dept Water 1","Dept Water 1").
+% % a_n("Empty","Dirt").
+% a_n("Dirt","Grass").
+% a_n("Dept Water 1","Water").
+% a_n("Water","NotPassable").
 
+% From names to IDs
+leftright(Asset1,Asset2) :-
+        lr_n(Name1,Name2),
+        prefabName(Asset1,Name1),
+        prefabName(Asset2,Name2).
+
+abovebelow(Asset1,Asset2) :-
+        tb_n(Name1,Name2),
+        prefabName(Asset1,Name1),
+        prefabName(Asset2,Name2).
+
+justabove(Asset1,Asset2) :-
+        a_n(Name1,Name2),
+        prefabName(Asset1,Name1),
+        prefabName(Asset2,Name2).
+
+% Each asset can stay on the left/right of itself
 leftright(AssetID,AssetID) :- asset(AssetID).
-leftright(Name2,Name1) :- leftright(Name1,Name2).
-compatible(Asset1,Asset2,Left) :-
-                        leftright(Name1,Name2), left(Left),
-                        prefabName(Asset1,Name1), prefabName(Asset2,Name2).
 
-justabove(Name1,Name2) :- abovebelow(Name1,Name2).
-justabove(Name2,Name1) :- abovebelow(Name1,Name2).
+% Left-Right
+leftright(Asset2,Asset1) :- leftright(Asset1,Asset2).
+compatible(Asset1,Asset2,Left) :-
+        leftright(Asset1,Asset2),
+        left_dir(Left).
+
+% Above
+justabove(Asset1,Asset2) :- abovebelow(Asset1,Asset2).
+justabove(Asset2,Asset1) :- abovebelow(Asset1,Asset2).
 compatible(Asset1,Asset2,Above) :-
-                        justabove(Name1,Name2), above(Above),
-                        prefabName(Asset1,Name1), prefabName(Asset2,Name2).
+        justabove(Asset1,Asset2),
+        above_dir(Above).
 
 % Defining all the possible actions
 % g   on the ground

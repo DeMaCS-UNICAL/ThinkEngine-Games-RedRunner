@@ -27,3 +27,5 @@ same_as(Asset1,Asset3) :- same_as(Asset1,Asset2), same_as(Asset2,Asset3).
 current_tile(StripeID,TileID) :-
         current_stripe(StripeID),
         tile(StripeID,TileID).
+current_tile(tile(StripeID,TileID)) :-
+    current_tile(StripeID,TileID).

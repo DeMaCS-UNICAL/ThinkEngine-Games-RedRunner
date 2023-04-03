@@ -27,11 +27,11 @@ Add(tile(StripeID+1,TileID)) :-
         current_tile(StripeID,TileID).
 
 % Update Asset for all Tiles in current Stripe 
-Add(contains_asset(tile(StripeID,TileID),Asset)) :-
-        current_tile(StripeID,TileID),
-        contains_asset(tile(StripeID,TileID),Asset).
+Add(contains_asset(Tile,Asset)) :-
+        current_tile(Tile),
+        contains_asset(Tile,Asset).
 
 % Update AgentState for current Stripe 
-Add(has_state(tile(StripeID,TileID),AgentState)) :-
-        reachable(tile(StripeID,TileID)),
-        possible_reachable(tile(StripeID,TileID),AgentState).
+Add(has_state(Tile,AgentState)) :-
+        current_tile(Tile),
+        has_state(Tile,AgentState).

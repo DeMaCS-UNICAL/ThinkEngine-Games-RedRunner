@@ -8,4 +8,4 @@
 % passable(Tile): Tile is a passable tile
 
 % Guess the passable tiles among the ones in the current stripe
-1<={ passable(tile(StripeID,TileID)) : current_tile(StripeID,TileID) }.
+1<={ passable(Tile) : current_tile(Tile) }.
