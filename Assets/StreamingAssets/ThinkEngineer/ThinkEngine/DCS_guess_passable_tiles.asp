@@ -9,3 +9,5 @@
 
 % Guess the passable tiles among the ones in the current stripe
 1<={ passable(Tile) : current_tile(Tile) }.
+
+nonpassable(Tile) :- current_tile(Tile), not passable(Tile).

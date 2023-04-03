@@ -15,5 +15,4 @@
 % Assign a non-passable Asset to each non-passable Tile
 1<={ contains_asset(Tile,Asset) :
         asset(Asset), not has_property(Asset,passable) }<=1 :-
-            current_tile(Tile),
-            not passable(Tile).
+            nonpassable(Tile).

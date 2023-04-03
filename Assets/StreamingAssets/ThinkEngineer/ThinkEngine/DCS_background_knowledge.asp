@@ -83,29 +83,50 @@ agent_state(j1).
 agent_state(j2).
 agent_state(f).
 
-% if on the ground
-action(direction(-1,0),g,g). % i.e., if the agent is on the ground, a step of a stripe keeps it on the ground
+% if you jump from the ground
+action(direction(-1,1),g,j1).
 
-% if in j1
+% if you are jumping
 action(direction(-1,1),j1,j2).
+% if you press right while going up
 action(direction(-1,0),j1,j2).
-% TODO possible_reachable(X-1,j2) :- prev_reachable(X,j1), passable(X-1).
 
-% if in j2
+% if you reached the peak of the jump
 action(direction(-1,-1),j2,f).
-% TODO possible_reachable(X,f) :- prev_reachable(X,j2), not passable(X+1), passable(X).
 
-% if in f
+% if you press right while falling
 action(direction(-1,-1),f,f).
-% TODO possible_reachable(X,f) :- prev_reachable(X,f), not passable(X+1), passable(X).
 
-% if you can reach a tile, you can also reach all the ones below it (up to a non passable one)
+% if you can reach a tile, you can also reach all the ones below it (when you stop moving forward)
+action(direction(0,0),AgentState,f) :- agent_state(AgentState).
 action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
 
 % check variation wrt the same tile in the previous stripe
-variation(direction(-1,0),0,40).
+variation(direction(-1,0),10,40).
 
 % Assets preferences
 % preference(Dirt,Dirt,Left,low) :- prefabName(Dirt,"Dirt"), left(Left).
 % preference(DeptWater,DeptWater,Left,low) :- prefabName(DeptWater,"Dept Water 1"), left(Left).
 % preference(Water,Water,Left,low) :- prefabName(Water,"Water"), left(Left).
+
+
+% We cannot express them directly with our current abstraction
+
+% if you are on the ground, a step of a stripe keeps it on the ground (if you still are above a non passable tile)
+action(direction(-1,0),g,gf).
+has_state(tile(StripeID,TileID),g) :-
+       passable(tile(StripeID,TileID)),
+       has_state(tile(StripeID-1,TileID),g),
+       nonpassable(tile(StripeID,TileID+1)).
+% falling otherwise
+has_state(tile(StripeID,TileID),f) :-
+       passable(tile(StripeID,TileID)),
+       has_state(tile(StripeID-1,TileID),g),
+       passable(tile(StripeID,TileID+1)).
+
+% if you are falling and you reach the ground, you get the ground state
+% action(direction(0,0),f,g).
+has_state(tile(StripeID,TileID),g) :-
+       current_stripe(StripeID),
+       has_state(tile(StripeID,TileID),f),
+       nonpassable(tile(StripeID,TileID+1)).
