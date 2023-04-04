@@ -21,20 +21,22 @@ asset(AssetID) :- prefabName(AssetID,_).
 
 % Utility atoms and rules to simplify the definition of `compatible` atoms
 left_dir(direction(-1,0)).
-above_dir(direction(0,-1)).    
+above_dir(direction(0,-1)).
+below_dir(direction(0,1)).
 
 lr_n("Grass","Empty").
 % lr_n("Grass","Water").
-% lr_n("Dirt","Empty").
+lr_n("Dirt","Empty").
+lr_n("Dirt","Grass").
 % lr_n("Dirt","Water").
 % lr_n("Dirt","Dept Water 1").
 
 tb_n("Empty","Grass").
 tb_n("Empty","Empty").
-% tb_n("Dirt","Dirt").
+tb_n("Dirt","Dirt").
 % tb_n("Dept Water 1","Dept Water 1").
 % % a_n("Empty","Dirt").
-% a_n("Dirt","Grass").
+a_n("Dirt","Grass").
 % a_n("Dept Water 1","Water").
 % a_n("Water","NotPassable").
 
@@ -78,55 +80,73 @@ compatible(Asset1,Asset2,Above) :-
 % A jump reaches the peak in two stripes
 % Jumps and falls follow 45-degree parabolas
 
+% if you jump vertically from the ground
+action(Below,g,g1) :- below_dir(Below).
+action(Below,g1,g2) :- below_dir(Below).
+% if you press right while going up
+action(Left,g1,j2) :- left_dir(Left).
+action(Left,g2,j2) :- left_dir(Left).
+
+% if you jump from the ground
+action(Above,g,cg) :- above_dir(Above).
+% check if the tile on the left has been marked
+action(Left,cg,j1) :- left_dir(Left).
+
+% if you want to jump, check if the tile above is passable
+action(Above,j1,cj1) :- above_dir(Above).
+% if you are jumping
+action(Left,cj1,j2) :- left_dir(Left).
+% if you press right while going up
+action(Left,j1,j2) :- left_dir(Left).
+
+% if you reached the peak of the jump
+action(Left,j2,cj2) :- left_dir(Left).
+% check if the tile above has been marked
+action(Above,cj2,f) :- above_dir(Above).
+
+% if you press right while falling
+action(Left,f,cf) :- left_dir(Left).
+% check if the tile above has been marked
+action(Above,cf,f) :- above_dir(Above).
+
+% if you can reach a tile, you can also reach all the ones below it (when you stop moving forward)
 agent_state(g).
 agent_state(j1).
 agent_state(j2).
 agent_state(f).
-
-% if you jump from the ground
-action(direction(-1,1),g,j1).
-
-% if you are jumping
-action(direction(-1,1),j1,j2).
-% if you press right while going up
-action(direction(-1,0),j1,j2).
-
-% if you reached the peak of the jump
-action(direction(-1,-1),j2,f).
-
-% if you press right while falling
-action(direction(-1,-1),f,f).
-
-% if you can reach a tile, you can also reach all the ones below it (when you stop moving forward)
-action(direction(0,0),AgentState,f) :- agent_state(AgentState).
-action(direction(0,-1),AgentState,f) :- agent_state(AgentState).
+% action(direction(0,0),AgentState,f) :- agent_state(AgentState).
+action(Above,AgentState,f) :- agent_state(AgentState), above_dir(Above).
 
 % check variation wrt the same tile in the previous stripe
-variation(direction(-1,0),10,40).
+variation(Left,10,40) :- left_dir(Left).
 
 % Assets preferences
-% preference(Dirt,Dirt,Left,low) :- prefabName(Dirt,"Dirt"), left(Left).
+preference(Grass,Grass,Left,low) :- prefabName(Grass,"Grass"), left(Left).
+preference(Dirt,Dirt,Left,low) :- prefabName(Dirt,"Dirt"), left(Left).
 % preference(DeptWater,DeptWater,Left,low) :- prefabName(DeptWater,"Dept Water 1"), left(Left).
 % preference(Water,Water,Left,low) :- prefabName(Water,"Water"), left(Left).
 
 
 % We cannot express them directly with our current abstraction
+% What we are missing is:
+% - a way to express (a conjunction of) multiple Preconditions
+% - a way to express preconditions that are not based on an AgentState in a specific Direction
 
 % if you are on the ground, a step of a stripe keeps it on the ground (if you still are above a non passable tile)
-action(direction(-1,0),g,gf).
-has_state(tile(StripeID,TileID),g) :-
+action(Left,g,gf) :- left_dir(Left).
+possible_reachable(tile(StripeID,TileID),g) :-
        passable(tile(StripeID,TileID)),
-       has_state(tile(StripeID-1,TileID),g),
+       has_state(tile(StripeID,TileID),gf),
        nonpassable(tile(StripeID,TileID+1)).
 % falling otherwise
-has_state(tile(StripeID,TileID),f) :-
+possible_reachable(tile(StripeID,TileID),f) :-
        passable(tile(StripeID,TileID)),
-       has_state(tile(StripeID-1,TileID),g),
+       has_state(tile(StripeID,TileID),gf),
        passable(tile(StripeID,TileID+1)).
 
 % if you are falling and you reach the ground, you get the ground state
 % action(direction(0,0),f,g).
-has_state(tile(StripeID,TileID),g) :-
+possible_reachable(tile(StripeID,TileID),g) :-
        current_stripe(StripeID),
-       has_state(tile(StripeID,TileID),f),
+       has_state(tile(StripeID,TileID),_),
        nonpassable(tile(StripeID,TileID+1)).
