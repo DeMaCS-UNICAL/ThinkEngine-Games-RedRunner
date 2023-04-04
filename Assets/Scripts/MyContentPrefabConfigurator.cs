@@ -12,19 +12,9 @@ public class MyContentPrefabConfigurator : ContentPrefabConfigurator
     // Start is called before the first frame update
     private void Awake()
     {
-        if(leftRight == null)
+        if (leftRight == null)
         {
             leftRight = new List<ContentPrefabConfigurator>();
         }
-    }
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }
