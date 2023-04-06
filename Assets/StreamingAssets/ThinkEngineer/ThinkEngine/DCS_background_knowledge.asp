@@ -11,10 +11,16 @@
 % pairs are always related to <Stripe,Tile>
 
 % Bottom tile cannot be passable
-:- current_tile(StripeID,TileID), height(TileID), contains_asset(tile(StripeID,TileID),AssetID), has_property(AssetID,passable).
+:- current_stripe(StripeID), height(TileID), contains_asset(tile(StripeID,TileID),AssetID), has_property(AssetID,passable).
 
 % The only `passable` asset is the Empty one
 has_property(AssetID,passable) :- prefabName(AssetID,"Empty").
+
+% Define the ground tiles
+has_property(AssetID,ground) :- prefabName(AssetID,"Grass").
+
+% `ground` Tiles cannot overlap with `passable` ones
+:- has_property(AssetID,passable), has_property(AssetID,ground).
 
 % Get all the assets from the `prefabName` atoms
 asset(AssetID) :- prefabName(AssetID,_).
@@ -25,20 +31,30 @@ above_dir(direction(0,-1)).
 below_dir(direction(0,1)).
 
 lr_n("Grass","Empty").
-% lr_n("Grass","Water").
+lr_n("Grass","Water").
 lr_n("Dirt","Empty").
 lr_n("Dirt","Grass").
-% lr_n("Dirt","Water").
-% lr_n("Dirt","Dept Water 1").
+lr_n("Dirt","Water").
+lr_n("Dirt","Dept Water 1").
+lr_n("NotPassable","Empty").
 
 tb_n("Empty","Grass").
 tb_n("Empty","Empty").
 tb_n("Dirt","Dirt").
-% tb_n("Dept Water 1","Dept Water 1").
-% % a_n("Empty","Dirt").
+tb_n("Dept Water 1","Dept Water 1").
 a_n("Dirt","Grass").
-% a_n("Dept Water 1","Water").
-% a_n("Water","NotPassable").
+a_n("Dept Water 1","Water").
+a_n("Water","NotPassable").
+a_n("NotPassable","Empty").
+
+% Check that we have not misplelled any name
+check_prefab_name(Name1,Name2) :- lr_n(Name1,Name2).
+check_prefab_name(Name1,Name2) :- tb_n(Name1,Name2).
+check_prefab_name(Name1,Name2) :- a_n(Name1,Name2).
+check_prefab_name(Name1) :- check_prefab_name(Name1,Name2).
+check_prefab_name(Name2) :- check_prefab_name(Name1,Name2).
+prefab_name(Name) :- prefabName(_,Name).
+:- check_prefab_name(Name), not prefab_name(Name).
 
 % From names to IDs
 leftright(Asset1,Asset2) :-
@@ -122,22 +138,23 @@ variation(Left,10,40) :- left_dir(Left).
 
 % Assets preferences
 preference(Grass,Grass,Left,low) :- prefabName(Grass,"Grass"), left(Left).
+preference(Water,Grass,Left,low) :- prefabName(Grass,"Grass"), prefabName(Water,"Water"), left(Left).
 preference(Dirt,Dirt,Left,low) :- prefabName(Dirt,"Dirt"), left(Left).
-% preference(DeptWater,DeptWater,Left,low) :- prefabName(DeptWater,"Dept Water 1"), left(Left).
-% preference(Water,Water,Left,low) :- prefabName(Water,"Water"), left(Left).
 
+% :~ prefabName(Grass,"Grass"), contains_asset(Tile,Grass). [1@100,Tile]
 
 % We cannot express them directly with our current abstraction
 % What we are missing is:
 % - a way to express (a conjunction of) multiple Preconditions
-% - a way to express preconditions that are not based on an AgentState in a specific Direction
+% - a way to express more 'complex' Preconditions (that are not just based on an AgentState in a specific Direction)
 
 % if you are on the ground, a step of a stripe keeps it on the ground (if you still are above a non passable tile)
 action(Left,g,gf) :- left_dir(Left).
+ground_tile(Tile) :- contains_asset(Tile,AssetID), has_property(AssetID,ground).
 possible_reachable(tile(StripeID,TileID),g) :-
        passable(tile(StripeID,TileID)),
        has_state(tile(StripeID,TileID),gf),
-       nonpassable(tile(StripeID,TileID+1)).
+       ground_tile(tile(StripeID,TileID+1)).
 % falling otherwise
 possible_reachable(tile(StripeID,TileID),f) :-
        passable(tile(StripeID,TileID)),
@@ -149,4 +166,4 @@ possible_reachable(tile(StripeID,TileID),f) :-
 possible_reachable(tile(StripeID,TileID),g) :-
        current_stripe(StripeID),
        has_state(tile(StripeID,TileID),_),
-       nonpassable(tile(StripeID,TileID+1)).
+       ground_tile(tile(StripeID,TileID+1)).

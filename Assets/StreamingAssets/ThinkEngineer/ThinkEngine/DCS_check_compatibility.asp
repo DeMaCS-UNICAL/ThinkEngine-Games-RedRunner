@@ -5,7 +5,7 @@
 % contains_asset(Tile,Asset)
 % compatible(Asset1,Asset2,D)
 
-% Identify the compatible tiles that need to be checked 
+% Identify the compatible tiles that need to be checked
 compatible_tiles_to_check(tile(StripeID,TileID),tile(StripeID+DirectionStripe,TileID+DirectionTile),AssetDirection) :-
         current_tile(StripeID,TileID),
         contains_asset(tile(StripeID,TileID),Asset),
