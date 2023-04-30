@@ -7,7 +7,7 @@
 % OUTPUT:
 % reachable(Tile): Tile is a reachable tile
 
-% Compute the `reachable` tiles
+% Compute the `reachable` tiles among the passable tiles
 reachable(Tile,AgentState) :- possible_reachable(Tile,AgentState), passable(Tile).
 
 % Actions in the current Stripe
@@ -21,8 +21,8 @@ reachable(tile(StripeID,TileID-DirectionTile),AgentState) :-
 has_state(Tile,AgentState) :-
         reachable(Tile,AgentState).
 
-% Utility rule: a projection of `reachable`
-reachable(Tile) :- reachable(Tile,AgentState).
+% Only those with a reachable state are considered `reachable`
+reachable(Tile) :- reachable(Tile,AgentState), reachable_state(AgentState).
 
 % There must be at least one reachable Tile
 at_least_one_reachable :- reachable(Tile).

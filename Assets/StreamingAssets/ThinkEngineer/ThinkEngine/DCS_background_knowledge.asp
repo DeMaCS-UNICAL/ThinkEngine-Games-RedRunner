@@ -37,6 +37,8 @@ lr_n("Dirt","Grass").
 lr_n("Dirt","Water").
 lr_n("Dirt","Dept Water 1").
 lr_n("NotPassable","Empty").
+lr_n("NotPassable","Grass").
+lr_n("NotPassable","Dirt").
 
 tb_n("Empty","Grass").
 tb_n("Empty","Empty").
@@ -126,12 +128,12 @@ action(Left,f,cf) :- left_dir(Left).
 action(Above,cf,f) :- above_dir(Above).
 
 % if you can reach a tile, you can also reach all the ones below it (when you stop moving forward)
-agent_state(g).
-agent_state(j1).
-agent_state(j2).
-agent_state(f).
-% action(direction(0,0),AgentState,f) :- agent_state(AgentState).
-action(Above,AgentState,f) :- agent_state(AgentState), above_dir(Above).
+reachable_state(g).
+reachable_state(j1).
+reachable_state(j2).
+reachable_state(f).
+% action(direction(0,0),AgentState,f) :- reachable_state(AgentState).
+action(Above,AgentState,f) :- reachable_state(AgentState), above_dir(Above).
 
 % check variation wrt the same tile in the previous stripe
 variation(Left,10,40) :- left_dir(Left).
