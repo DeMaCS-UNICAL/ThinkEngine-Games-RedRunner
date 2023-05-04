@@ -13,3 +13,6 @@ current_asset(StripeID,TileID,Asset) :-
         contains_asset(tile(StripeID,TileID),Asset),
         current_stripe(StripeID).
 % current_asset(StripeID,TileID,Asset) ?
+custom_instantiation(current_asset(X,Y,Z)) :- current_asset(X,Y,Z).
+custom_instantiation(has_state(X,Y)) :- has_state(X,Y).
+custom_instantiation(reachable(Tile) ) :- reachable(Tile).
