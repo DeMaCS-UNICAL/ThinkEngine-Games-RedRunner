@@ -51,7 +51,7 @@ public class Instantiator : CustomInstantiator
                 float pX = stripe * tileWidth - tileWidth / 2;
                 float pY = sceneHeight * tileHeight - tile * tileHeight + tileHeight / 2;
                 //Debug.Log("Requisting to instantiate in " + pX + " " + pY);
-                instantiator.InstantiateCircle(new Vector3(pX, pY, 0), arguments[1]);
+                instantiator.InstantiateByName(new Vector3(pX, pY, 0), arguments[1]);
             }
         }
     }
@@ -70,7 +70,7 @@ public class Instantiator : CustomInstantiator
                 float pX = stripe * tileWidth - tileWidth / 2;
                 float pY = sceneHeight * tileHeight - tile * tileHeight + tileHeight / 2;
                 //Debug.Log("Requisting to instantiate in " + pX + " " + pY);
-                instantiator.InstantiateCircle(new Vector3(pX, pY, 0), "reach");
+                instantiator.InstantiateByName(new Vector3(pX, pY, 0), "reach");
             }
         }
     }
