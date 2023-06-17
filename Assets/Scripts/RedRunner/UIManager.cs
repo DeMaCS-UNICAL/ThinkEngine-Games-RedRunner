@@ -66,6 +66,7 @@ namespace RedRunner
         void Start()
         {
             Init();
+            Application.targetFrameRate = 20;
         }
 
         public void Init()

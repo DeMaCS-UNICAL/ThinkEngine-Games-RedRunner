@@ -15,7 +15,7 @@
 % Add a new Stripe
 Add(stripe(StripeID+1)) :-
         current_stripe(StripeID).
-
+Delete(stripe(StripeID-1)) :- current_stripe(StripeID).
 % Update current Stripe
 % Add(current_stripe(StripeID+1)) :- current_stripe(StripeID).
 % Delete(current_stripe(StripeID)) :- current_stripe(StripeID).
@@ -25,13 +25,23 @@ Update(current_stripe(StripeID),current_stripe(StripeID+1)) :-
 % Add new Tiles
 Add(tile(StripeID+1,TileID)) :-
         current_tile(StripeID,TileID).
+Delete(tile(StripeID-1,TileID)) :- current_tile(StripeID,TileID).
+
 
 % Update Asset for all Tiles in current Stripe 
 Add(contains_asset(Tile,Asset)) :-
         current_tile(Tile),
         contains_asset(Tile,Asset).
+        
+Delete(contains_asset(tile(StripeID-1,TileID),Asset)) :-
+        current_tile(tile(StripeID,TileID)),
+        contains_asset(tile(StripeID-1,TileID),Asset).
 
 % Update AgentState for current Stripe 
 Add(has_state(Tile,AgentState)) :-
         current_tile(Tile),
         has_state(Tile,AgentState).
+
+Delete(has_state(tile(StripeID-1,TileID),AgentState)) :-
+        current_tile(tile(StripeID,TileID)),
+        has_state(tile(StripeID-1,TileID),AgentState).
