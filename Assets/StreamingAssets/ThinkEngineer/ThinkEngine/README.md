@@ -47,7 +47,8 @@ graph TB
 
     %% Properties (Actions and Compatibility)
     Action -- has direction --> Direction
-    Direction -- has value --> direction{{int,int}} %% the first refers to the stripes, the second to the tiles (of the current stripe)
+    Direction -- has value --> direction{{int,int}}
+    %% the first refers to the stripes, the second to the tiles (of the current stripe)
     Action -- has precondition --> AgentState
     Action -- has effect --> AgentState
 

@@ -6,10 +6,11 @@ using UnityEngine;
 {
 	 public class ThinkEngineTrigger:ScriptableObject
 	{
+		// Application.targetFrameRate = 1;
 		int cont = 0;
 		public bool Run()
         {
-			if(cont == 100)
+			if(cont == 1)
             {
 				cont = 0;
 				return true;
