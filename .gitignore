@@ -474,3 +474,5 @@ FodyWeavers.xsd
 *.asp.meta
 *.exe.meta
 README.md.meta
+Assets/StreamingAssets/screenshots/
+Assets/StreamingAssets/screenshots.meta
