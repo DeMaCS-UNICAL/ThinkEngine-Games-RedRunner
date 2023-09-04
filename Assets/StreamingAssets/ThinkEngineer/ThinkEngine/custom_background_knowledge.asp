@@ -10,7 +10,7 @@
 % preference(Asset1,Asset2,D,Priority): Asset Asset1 is Priority preferred with Asset Asset2 in Direction D
 % pairs are always related to <Stripe,Tile>
 
-% Bottom tile cannot be passable
+% Bottom tile cannot be passable (but could be empty, so the agent could fall)
 :- current_stripe(StripeID), height(TileID), contains_asset(tile(StripeID,TileID),AssetID), has_property(AssetID,passable).
 
 % The only `passable` asset is the Empty one
@@ -169,3 +169,6 @@ possible_reachable(tile(StripeID,TileID),g) :-
        current_stripe(StripeID),
        has_state(tile(StripeID,TileID),_),
        ground_tile(tile(StripeID,TileID+1)).
+
+% Collectables
+collectable("Coin").
